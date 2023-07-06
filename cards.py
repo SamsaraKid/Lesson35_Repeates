@@ -18,10 +18,11 @@ class Card:
         print('\t', self.suit, self.val)
 
 class Koloda:
-    cards = []
+    #cards = []
     suits = ['\u2664', '\u2665', '\u2666', '\u2667']
     nums = ['Туз', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Валет', 'Дама', 'Король']
     def __init__(self):
+        self.cards = []
         for s in self.suits:
             for n in self.nums:
                 self.cards.append(Card(s, n))
@@ -77,59 +78,7 @@ boris.showhand()
 
 boris.fold()
 boris.showhand()
-
-name = input('Начнём игру. Введите ваше имя:\n')
-player = Player(name)
-comp = Player('Компьютер')
-deck = Koloda()
-
-def comp_take_card():
-    if comp.sum < 11 or (11 <= comp.sum <= 19 and random.choices([True, False], weights=[20-comp.sum, comp.sum-10], k=1)[0]):
-        comp.takecard(deck)
-        print('Игрок', comp.name, 'взял карту')
-        return True
-    else:
-        print('Игрок', comp.name, 'отказался от добора')
-        return False
-
-def check():
-    if (player.sum > 21 and comp.sum > 21) or (player.sum == comp.sum):
-        print('Ничья')
-        res = 0
-    elif (player.sum == 21) or (player.sum < 21 < comp.sum) or (comp.sum < player.sum < 21):
-        print('Вы выиграли!')
-        res = 1
-    else:
-        print('Вы проиграли =(')
-        res = 2
-    print('Карты соперника:')
-    comp.showhand()
-    comp.showsum()
-    return res
+print(bob.hand[0].val)
 
 
 
-while True:
-    end_game = False
-    deck.shuffle()
-    player.takecard(deck, 2)
-    comp.takecard(deck, 2)
-    print('Ваши карты:')
-    player.showhand()
-    player.showsum()
-
-
-
-
-
-    while True:
-        ans = int(input('Возьмёте ещё карту?\n1 - да\n2 - нет\n'))
-        if ans == 1:
-            player.takecard(deck)
-            print('Ваши карты:')
-            player.showhand()
-            player.showsum()
-        else:
-            break
-
-    break
